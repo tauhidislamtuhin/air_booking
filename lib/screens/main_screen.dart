@@ -1,11 +1,6 @@
 import 'package:air_booking/models/flight_search.dart';
-import 'package:air_booking/screens/booking.dart';
-import 'package:air_booking/screens/details.dart';
 import 'package:air_booking/screens/home.dart';
-import 'package:air_booking/screens/payment.dart';
-import 'package:air_booking/screens/search.dart';
 import 'package:air_booking/screens/test.dart';
-import 'package:air_booking/screens/ticket.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

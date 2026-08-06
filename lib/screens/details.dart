@@ -1,8 +1,6 @@
 import 'package:air_booking/models/flight_search.dart';
 import 'package:air_booking/screens/booking.dart';
 import 'package:air_booking/utils/custom_colors.dart';
-import 'package:air_booking/utils/featureRow.dart';
-import 'package:air_booking/widgets/common_card.dart';
 import 'package:air_booking/widgets/common_header.dart';
 import 'package:air_booking/widgets/custom_button.dart';
 import 'package:air_booking/widgets/flight_info_card.dart';
@@ -85,7 +83,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
           color: Colors.white,
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              color: Colors.black.withValues(alpha: 0.05),
               blurRadius: 10,
               offset: const Offset(0, -4),
             ),

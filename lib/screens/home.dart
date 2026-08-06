@@ -4,8 +4,6 @@ import 'package:air_booking/widgets/common_header.dart';
 import 'package:air_booking/widgets/custom_textfield.dart';
 import 'package:air_booking/widgets/trip_selection.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-
 import '../models/airport.dart';
 import '../models/flight_search.dart';
 import '../models/offer.dart';
