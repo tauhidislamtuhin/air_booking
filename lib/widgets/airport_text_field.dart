@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/airport.dart';
 import '../utils/custom_colors.dart';
 
-class AirportTextField extends StatelessWidget {
+class AirportTextField extends StatefulWidget {
   final String title;
   final IconData icon;
   final Airport? airport;
@@ -17,6 +17,35 @@ class AirportTextField extends StatelessWidget {
   });
 
   @override
+  State<AirportTextField> createState() => _AirportTextFieldState();
+}
+
+class _AirportTextFieldState extends State<AirportTextField> {
+  late TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    // airport nul check
+    _controller = TextEditingController(
+      text: widget.airport == null
+          ? ""
+          : "${widget.airport!.city} (${widget.airport!.code})",
+    );
+  }
+
+  @override
+  void didUpdateWidget(covariant AirportTextField oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // Swap
+    if (oldWidget.airport != widget.airport) {
+      _controller.text = widget.airport == null
+          ? ""
+          : "${widget.airport!.city} (${widget.airport!.code})";
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     final cardBg = CustomColors.getCardColor(context);
     final textColor = CustomColors.getTextColor(context);
@@ -25,48 +54,57 @@ class AirportTextField extends StatelessWidget {
 
     return Autocomplete<Airport>(
       initialValue: TextEditingValue(
-        text: airport == null ? "" : "${airport!.city} (${airport!.code})",
+        text: widget.airport == null
+            ? ""
+            : "${widget.airport!.city} (${widget.airport!.code})",
       ),
 
-      // Filter airport list based on input
       optionsBuilder: (textEditingValue) {
         if (textEditingValue.text.isEmpty) {
           return Airport.airports;
         }
 
-        return Airport.airports.where((airport) {
+        return Airport.airports.where((a) {
           final query = textEditingValue.text.toLowerCase();
-          return airport.city.toLowerCase().contains(query) ||
-              airport.code.toLowerCase().contains(query) ||
-              airport.name.toLowerCase().contains(query);
+          return a.city.toLowerCase().contains(query) ||
+              a.code.toLowerCase().contains(query) ||
+              a.name.toLowerCase().contains(query);
         });
       },
 
-      displayStringForOption: (airport) =>
-      "${airport.city} (${airport.code})",
+      displayStringForOption: (option) =>
+      "${option.city} (${option.code})",
 
-      onSelected: onSelected,
+      onSelected: (selectedAirport) {
+        widget.onSelected(selectedAirport);
+        _controller.text =
+        "${selectedAirport.city} (${selectedAirport.code})";
+      },
 
-      // Input field
       fieldViewBuilder: (
           context,
-          controller,
+          fieldController,
           focusNode,
           onFieldSubmitted,
           ) {
-        controller.text = airport == null
-            ? ""
-            : "${airport!.city} (${airport!.code})";
+        if (fieldController.text != _controller.text) {
+          fieldController.text = _controller.text;
+        }
 
         return TextField(
-          controller: controller,
+          controller: fieldController,
           focusNode: focusNode,
           style: TextStyle(color: textColor),
           decoration: InputDecoration(
-            labelText: title,
+            labelText: widget.title,
+            hintText: "Select ${widget.title} Airport",
+            hintStyle: TextStyle(
+              color: subTextColor.withAlpha(150),
+              fontSize: 14,
+            ),
             labelStyle: TextStyle(color: subTextColor),
             floatingLabelBehavior: FloatingLabelBehavior.always,
-            prefixIcon: Icon(icon, color: textColor),
+            prefixIcon: Icon(widget.icon, color: textColor),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(14),
               borderSide: BorderSide(color: borderColor),
@@ -82,7 +120,7 @@ class AirportTextField extends StatelessWidget {
         );
       },
 
-      // Dropdown menu
+      // auto fillip
       optionsViewBuilder: (context, onAutoCompleteSelected, options) {
         return Align(
           alignment: Alignment.topLeft,

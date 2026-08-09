@@ -1,4 +1,4 @@
-import 'package:air_booking/screens/search.dart';
+import 'package:air_booking/screens/search_screen.dart';
 import 'package:air_booking/utils/passenger_bottom_sheet.dart';
 import 'package:air_booking/widgets/common_header.dart';
 import 'package:air_booking/widgets/custom_textfield.dart';
@@ -26,8 +26,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int selectedIndex = 0;
 
-  Airport? fromAirport = Airport.airports[2];
-  Airport? toAirport = Airport.airports[3];
+  Airport? fromAirport ;
+  Airport? toAirport;
 
   DateTime? departureDate;
   DateTime? returnDate;
