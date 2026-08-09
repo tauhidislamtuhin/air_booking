@@ -28,7 +28,7 @@ class _AccountScreenState extends State<AccountScreen> {
                 Stack(
                   alignment: Alignment.center,
                   children: [
-                    CommonHeader(height: 220),
+                    const CommonHeader(height: 220),
                     SafeArea(
                       child: Column(
                         children: [
@@ -180,15 +180,16 @@ class _AccountScreenState extends State<AccountScreen> {
     );
   }
 
-  // Helper container card for menu item
+  // ✅ FIX: Container-এর decoration বাদ দিয়ে Material ব্যবহার করা হয়েছে
   Widget _buildMenuContainer({required Widget child}) {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
-      decoration: BoxDecoration(
+      child: Material(
         color: CustomColors.getCardColor(context),
         borderRadius: BorderRadius.circular(16),
+        clipBehavior: Clip.antiAlias, // রিপল অ্যানিমেশন যেন রেডিয়াসের ভেতরে থাকে
+        child: child,
       ),
-      child: child,
     );
   }
 
