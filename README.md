@@ -1,8 +1,9 @@
 <div align="center">
 
   <h1>✈️ Air Booking App</h1>
-  <p>A seamless, modern, and cross-platform Flight Booking Mobile Application.</p>
+  <p>A seamless, modern, and cross-platform Flight Booking Mobile Application built with Flutter.</p>
 
+  [![Download APK](https://img.shields.io/badge/Download-APK-2ea44f?style=for-the-badge&logo=android&logoColor=white)](https://github.com/tauhidislamtuhin/air_booking/releases/download/v1.0.0/Air.Booking.apk)
   [![Flutter](https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white)](https://flutter.dev/)
   [![Dart](https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white)](https://dart.dev/)
 
@@ -39,3 +40,10 @@
 ## 🏗️ Architecture & Project Structure
 
 This application follows clean code principles and structured layout design:
+
+```text
+lib/
+ ├── models/        # Data models (Airport, Flight, Offer, etc.)
+ ├── screens/       # Core app screens (Home, Search, Details, Payment, E-Ticket)
+ ├── utils/         # Helpers (Custom Colors, Date Formatters, BottomSheets)
+ └── widgets/       # Reusable components (TextFields, Buttons, Headers, Cards)
