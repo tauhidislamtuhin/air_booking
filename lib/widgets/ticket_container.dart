@@ -29,11 +29,13 @@ class TicketPainter extends CustomPainter {
 
     Path path = Path();
 
+    // Top border with rounded corners
     path.moveTo(0, 20);
     path.quadraticBezierTo(0, 0, 20, 0);
     path.lineTo(size.width - 20, 0);
     path.quadraticBezierTo(size.width, 0, size.width, 20);
 
+    // Right notch cutout
     path.lineTo(size.width, notchY - radius);
     path.arcToPoint(
       Offset(size.width, notchY + radius),
@@ -44,11 +46,10 @@ class TicketPainter extends CustomPainter {
     double waveHeight = 12;
     path.lineTo(size.width, size.height - waveHeight);
 
-    // Zig-Zag
-    double waveWidth = 20; // প্রতিটি ঢেউয়ের চওড়া
+    // Bottom zig-zag pattern
+    double waveWidth = 20;
     int waveCount = (size.width / waveWidth).floor();
     double remainingWidth = size.width - (waveCount * waveWidth);
-
 
     for (int i = 0; i < waveCount; i++) {
       path.relativeQuadraticBezierTo(
@@ -61,6 +62,7 @@ class TicketPainter extends CustomPainter {
       path.lineTo(0, size.height - waveHeight);
     }
 
+    // Left notch cutout
     path.lineTo(0, notchY + radius);
     path.arcToPoint(
       Offset(0, notchY - radius),
@@ -71,10 +73,9 @@ class TicketPainter extends CustomPainter {
     path.lineTo(0, 20);
     path.close();
 
-
     canvas.drawPath(path, bgPaint);
 
-    // Dotted Line
+    // Center divider dotted line
     final dotPaint = Paint()
       ..color = Colors.grey.shade300
       ..strokeWidth = 2

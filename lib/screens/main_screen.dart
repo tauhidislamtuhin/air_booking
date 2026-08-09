@@ -1,6 +1,11 @@
 import 'package:air_booking/models/flight_search.dart';
+import 'package:air_booking/screens/account.dart';
+import 'package:air_booking/screens/booking.dart';
 import 'package:air_booking/screens/home.dart';
+import 'package:air_booking/screens/save_screen.dart';
 import 'package:air_booking/screens/test.dart';
+import 'package:air_booking/screens/wallet_screen.dart';
+import 'package:air_booking/utils/custom_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -15,25 +20,32 @@ class _MainScreenState extends State<MainScreen> {
   int currentIndex = 0;
   late FlightSearch fsearch;
 
-  final List<Widget> pages = const [
+  // Screen list for tab navigation
+  final List<Widget> pages = [
     HomeScreen(),
-    Test(),
-    Test(),
-    Test(),
-    Test(),
+     SaveScreen(),
+     Booking(),
+     WalletScreen(),
+    AccountScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
+    final cardBg = CustomColors.getCardColor(context);
+    final subTextColor = CustomColors.getSubTextColor(context);
+
     return Scaffold(
       body: IndexedStack(
         index: currentIndex,
         children: pages,
       ),
+
+      // Bottom navigation bar
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentIndex,
-        selectedItemColor: const Color(0xFF2962FF),
-        unselectedItemColor: Colors.grey,
+        backgroundColor: cardBg,
+        selectedItemColor: CustomColors.primaryColor,
+        unselectedItemColor: subTextColor,
         showUnselectedLabels: true,
         type: BottomNavigationBarType.fixed,
         onTap: (index) {

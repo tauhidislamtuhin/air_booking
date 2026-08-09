@@ -1,4 +1,5 @@
 import 'package:air_booking/models/flight_search.dart';
+import 'package:air_booking/utils/custom_colors.dart';
 import 'package:air_booking/widgets/common_header.dart';
 import 'package:flutter/material.dart';
 
@@ -23,6 +24,7 @@ class _SearchHeaderState extends State<SearchHeader> {
     selectedDate = widget.search.departureDate!;
   }
 
+  // Date picker
   Future<void> _pickDate() async {
     final picked = await showDatePicker(
       context: context,
@@ -42,201 +44,208 @@ class _SearchHeaderState extends State<SearchHeader> {
   Widget build(BuildContext context) {
     return CommonHeader(
       height: 300,
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    IconButton(
-                      onPressed: () => Navigator.pop(context),
-                      icon: const Icon(
-                        Icons.arrow_back_ios_new,
-                        color: Colors.white,
-                      ),
-                    ),
-
-                    const Expanded(
-                      child: Center(
-                        child: Text(
-                          "Search Flights",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-
-                    const Icon(
-                      Icons.more_vert,
+      child: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            children: [
+              // Top navigation row
+              Row(
+                children: [
+                  IconButton(
+                    onPressed: () => Navigator.pop(context),
+                    icon: const Icon(
+                      Icons.arrow_back_ios_new,
                       color: Colors.white,
                     ),
-                  ],
-                ),
-
-                const SizedBox(height: 25),
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          widget.search.fromAirport.code,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 26,
-                            fontWeight: FontWeight.bold,
-                          ),
+                  ),
+                  const Expanded(
+                    child: Center(
+                      child: Text(
+                        "Search Flights",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
                         ),
-                        Text(
-                          widget.search.fromAirport.city,
-                          style: const TextStyle(
-                            color: Colors.white70,
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
+                  ),
+                  const Icon(
+                    Icons.more_vert,
+                    color: Colors.white,
+                  ),
+                ],
+              ),
 
-                    Column(
-                      children: [
-                        Image.asset("assets/images/white_plan.png",
-                          height: 40,
-                          width: 200,
-                          fit: BoxFit.fitWidth,),
-                        const SizedBox(height: 8),
-                        Text(
-                          "${widget.search.passenger} • ${widget.search.travelClass}",
-                          style: const TextStyle(
-                            color: Colors.white70,
-                          ),
+              const SizedBox(height: 25),
+
+              // Route & flight details
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // From airport
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.search.fromAirport.code,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 26,
+                          fontWeight: FontWeight.bold,
                         ),
-                      ],
-                    ),
-
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text(
-                          widget.search.toAirport.code,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 28,
-                            fontWeight: FontWeight.bold,
-                          ),
+                      ),
+                      Text(
+                        widget.search.fromAirport.city,
+                        style: const TextStyle(
+                          color: Colors.white70,
                         ),
-                        Text(
-                          widget.search.toAirport.city,
-                          style: const TextStyle(
-                            color: Colors.white70,
-                          ),
+                      ),
+                    ],
+                  ),
+
+                  Column(
+                    children: [
+                      Image.asset(
+                        "assets/images/white_plan.png",
+                        height: 40,
+                        width: 200,
+                        fit: BoxFit.fitWidth,
+                        errorBuilder: (_, __, ___) => const SizedBox(),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        "${widget.search.passenger} • ${widget.search.travelClass}",
+                        style: const TextStyle(
+                          color: Colors.white70,
                         ),
-                      ],
-                    ),
-                  ],
-                ),
+                      ),
+                    ],
+                  ),
 
-                const Spacer(),
+                  // To airport
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                        widget.search.toAirport.code,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        widget.search.toAirport.city,
+                        style: const TextStyle(
+                          color: Colors.white70,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
 
-                SizedBox(
-                  height: 65,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 8,
-                    itemBuilder: (context, index) {
+              const Spacer(),
 
-                      if (index == 0) {
-                        return GestureDetector(
-                          onTap: _pickDate,
-                          child: Container(
-                            width: 55,
-                            margin: const EdgeInsets.only(right: 8),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(14),
-                              border: Border.all(
-                                color: Colors.white38,
-                              ),
-                            ),
-                            child: const Icon(
-                              Icons.calendar_month_outlined,
-                              color: Colors.white,
-                            ),
-                          ),
-                        );
-                      }
-
-                      final date = selectedDate.add(
-                        Duration(days: index - 3),
-                      );
-
-                      final isSelected = DateUtils.isSameDay(
-                        date,
-                        selectedDate,
-                      );
-
+              // date strip selector
+              SizedBox(
+                height: 65,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 8,
+                  itemBuilder: (context, index) {
+                    // Calendar button
+                    if (index == 0) {
                       return GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            selectedDate = date;
-                          });
-                        },
+                        onTap: _pickDate,
                         child: Container(
                           width: 55,
                           margin: const EdgeInsets.only(right: 8),
                           decoration: BoxDecoration(
-                            color: isSelected
-                                ? Colors.white
-                                : Colors.transparent,
                             borderRadius: BorderRadius.circular(14),
                             border: Border.all(
                               color: Colors.white38,
                             ),
                           ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "${date.day}",
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  color: isSelected
-                                      ? const Color(0xff2962FF)
-                                      : Colors.white,
-                                ),
-                              ),
-                              Text(
-                                [
-                                  "Mon",
-                                  "Tue",
-                                  "Wed",
-                                  "Thu",
-                                  "Fri",
-                                  "Sat",
-                                  "Sun"
-                                ][date.weekday - 1],
-                                style: TextStyle(
-                                  fontSize: 11,
-                                  color: isSelected
-                                      ? const Color(0xff2962FF)
-                                      : Colors.white70,
-                                ),
-                              ),
-                            ],
+                          child: const Icon(
+                            Icons.calendar_month_outlined,
+                            color: Colors.white,
                           ),
                         ),
                       );
-                    },
-                  ),
+                    }
+
+                    final date = selectedDate.add(
+                      Duration(days: index - 3),
+                    );
+
+                    final isSelected = DateUtils.isSameDay(
+                      date,
+                      selectedDate,
+                    );
+
+                    // Date item box
+                    return GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          selectedDate = date;
+                        });
+                      },
+                      child: Container(
+                        width: 55,
+                        margin: const EdgeInsets.only(right: 8),
+                        decoration: BoxDecoration(
+                          color: isSelected
+                              ? Colors.white
+                              : Colors.transparent,
+                          borderRadius: BorderRadius.circular(14),
+                          border: Border.all(
+                            color: Colors.white38,
+                          ),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "${date.day}",
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: isSelected
+                                    ? CustomColors.primaryColor
+                                    : Colors.white,
+                              ),
+                            ),
+                            Text(
+                              [
+                                "Mon",
+                                "Tue",
+                                "Wed",
+                                "Thu",
+                                "Fri",
+                                "Sat",
+                                "Sun"
+                              ][date.weekday - 1],
+                              style: TextStyle(
+                                fontSize: 11,
+                                color: isSelected
+                                    ? CustomColors.primaryColor
+                                    : Colors.white70,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
+      ),
     );
   }
 }

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+import '../utils/custom_colors.dart';
 
 class CommonHeader extends StatelessWidget {
   final double height;
@@ -6,30 +9,38 @@ class CommonHeader extends StatelessWidget {
 
   const CommonHeader({
     super.key,
-    this.height = 300, this.child,
+    this.height = 300,
+    this.child,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: height,
-      width: double.infinity,
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            Color(0xFF2F6BFF),
-            Color(0xFF1E5BFF),
-          ],
-        ),
-        image: DecorationImage(
-          image: AssetImage("assets/images/dots_pattern.png"),
-          fit: BoxFit.cover,
-          opacity: .12,
-        ),
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value:  SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.light, // Android
+        statusBarBrightness: Brightness.dark,     // iOS
       ),
-      child: child,
+      child: Container(
+        height: height,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              CustomColors.primaryColor,
+              CustomColors.primaryColor.withAlpha(210),
+            ],
+          ),
+          image: const DecorationImage(
+            image: AssetImage("assets/images/dots_pattern.png"),
+            fit: BoxFit.cover,
+            opacity: 0.12,
+          ),
+        ),
+        child: child,
+      ),
     );
   }
 }

@@ -22,7 +22,11 @@ class FlightInfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textColor = CustomColors.getTextColor(context);
+    final subTextColor = CustomColors.getSubTextColor(context);
+
     return CommonCard(
+      // Custom header row layout
       customRow: isCustomRow
           ? [
         Image.asset(
@@ -30,6 +34,7 @@ class FlightInfoCard extends StatelessWidget {
           width: 42,
           height: 42,
           fit: BoxFit.contain,
+          errorBuilder: (_, __, ___) => const SizedBox(width: 42, height: 42),
         ),
         const SizedBox(width: 14),
         Column(
@@ -37,10 +42,10 @@ class FlightInfoCard extends StatelessWidget {
           children: [
             Text(
               title ?? "Original",
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: Colors.black87,
+                color: textColor,
               ),
             ),
             const SizedBox(height: 4),
@@ -55,10 +60,10 @@ class FlightInfoCard extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const TextSpan(
+                  TextSpan(
                     text: " /pax",
                     style: TextStyle(
-                      color: Colors.grey,
+                      color: subTextColor,
                       fontSize: 13,
                     ),
                   ),
@@ -67,22 +72,25 @@ class FlightInfoCard extends StatelessWidget {
             ),
           ],
         ),
-      ] : null,
+      ]
+          : null,
 
       title: title,
       icon: icon,
+
+      // Footer section with icons and details button
       footer: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
-            children: const [
-              Icon(Icons.fastfood_outlined, size: 18, color: Colors.black54),
-              SizedBox(width: 10),
-              Icon(Icons.tv_outlined, size: 18, color: Colors.black54),
-              SizedBox(width: 10),
-              Icon(Icons.wifi, size: 18, color: Colors.black54),
-              SizedBox(width: 10),
-              Icon(Icons.power_outlined, size: 18, color: Colors.black54),
+            children: [
+              Icon(Icons.fastfood_outlined, size: 18, color: subTextColor),
+              const SizedBox(width: 10),
+              Icon(Icons.tv_outlined, size: 18, color: subTextColor),
+              const SizedBox(width: 10),
+              Icon(Icons.wifi, size: 18, color: subTextColor),
+              const SizedBox(width: 10),
+              Icon(Icons.power_outlined, size: 18, color: subTextColor),
             ],
           ),
           InkWell(
@@ -108,13 +116,15 @@ class FlightInfoCard extends StatelessWidget {
           ),
         ],
       ),
+
+      // List of flight features
       child: Column(
         children: [
-          featureRow(Icons.shopping_bag_outlined, "Cabin Baggage 1 x 7 kg"),
-          featureRow(Icons.business_center_outlined, "Baggage 1 x 20 kg"),
-          featureRow(Icons.calendar_today_outlined, "Reschedule Available"),
-          featureRow(Icons.monetization_on_outlined, "Refundable"),
-          featureRow(Icons.verified_user_outlined, "Travel Insurance Included"),
+          featureRow(context, Icons.shopping_bag_outlined, "Cabin Baggage 1 x 7 kg"),
+          featureRow(context, Icons.business_center_outlined, "Baggage 1 x 20 kg"),
+          featureRow(context, Icons.calendar_today_outlined, "Reschedule Available"),
+          featureRow(context, Icons.monetization_on_outlined, "Refundable"),
+          featureRow(context, Icons.verified_user_outlined, "Travel Insurance Included"),
         ],
       ),
     );

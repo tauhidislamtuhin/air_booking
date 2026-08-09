@@ -30,6 +30,7 @@ class TicketScreen extends StatefulWidget {
 class _TicketScreenState extends State<TicketScreen> {
   final WidgetsToImageController _controller = WidgetsToImageController();
 
+  // Capture ticket widget and save to image gallery
   Future<void> _downloadTicket() async {
     try {
       final hasAccess = await Gal.hasAccess();
@@ -64,7 +65,7 @@ class _TicketScreenState extends State<TicketScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: CustomColors.backgroundColor,
+      backgroundColor: CustomColors.getBackgroundColor(context),
       body: Column(
         children: [
           CommonHeader(
@@ -72,6 +73,7 @@ class _TicketScreenState extends State<TicketScreen> {
             child: SafeArea(
               child: Column(
                 children: [
+                  // App bar header
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -102,6 +104,8 @@ class _TicketScreenState extends State<TicketScreen> {
                       const SizedBox(width: 15),
                     ],
                   ),
+
+                  // Ticket card container printable view
                   Expanded(
                     child: SingleChildScrollView(
                       padding: const EdgeInsets.symmetric(
@@ -113,11 +117,13 @@ class _TicketScreenState extends State<TicketScreen> {
                         child: TicketContainer(
                           child: Column(
                             children: [
+                              // Check-in barcode
                               BarcodeWidget(
                                 barcode: Barcode.code128(),
                                 data: widget.bookingId,
                                 height: 70,
                                 drawText: false,
+                                color: Colors.black,
                               ),
                               const SizedBox(height: 8),
                               const Text(
@@ -125,6 +131,8 @@ class _TicketScreenState extends State<TicketScreen> {
                                 style: TextStyle(fontSize: 11, color: Colors.grey),
                               ),
                               const SizedBox(height: 35),
+
+                              // Ticket summary card
                               FlightCard(
                                 flight: widget.flight,
                                 isTicket: true,
@@ -133,8 +141,10 @@ class _TicketScreenState extends State<TicketScreen> {
                                 ),
                               ),
                               const SizedBox(height: 20),
-                              const Divider(color: Colors.grey, height: 1),
+                              Divider(color: Colors.grey.shade300, height: 1),
                               const SizedBox(height: 15),
+
+                              // Passenger & booking info rows (Static white theme layout)
                               infoRow("Passenger Name", "Mr. Andrew Ainsley"),
                               infoRow("Email", "andrew.ainsley@y...n.com"),
                               infoRow("Phone Number", "+1 111 467 378 399"),
@@ -143,17 +153,18 @@ class _TicketScreenState extends State<TicketScreen> {
                               infoRow("Flight Number", "EK202"),
                               infoRow("Gate", "25"),
                               infoRow("Seat Number", "B2"),
+
                               const SizedBox(height: 20),
                               const Text(
                                 "Enjoy traveling around the world with us",
                                 style: TextStyle(fontSize: 11, color: Colors.grey),
                               ),
                               const SizedBox(height: 4),
-                              const Text(
+                              Text(
                                 "www.airify.yourdomain",
                                 style: TextStyle(
                                   fontSize: 12,
-                                  color: Colors.blue,
+                                  color: CustomColors.primaryColor,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -164,25 +175,26 @@ class _TicketScreenState extends State<TicketScreen> {
                       ),
                     ),
                   ),
-
                 ],
               ),
             ),
           ),
-
-
         ],
       ),
     );
   }
 
+  // Static row colors for ticket view across all app modes
   Widget infoRow(String label, String value, {bool isBold = false}) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label, style: const TextStyle(color: Colors.grey, fontSize: 13)),
+          Text(
+            label,
+            style: const TextStyle(color: Colors.grey, fontSize: 13),
+          ),
           Text(
             value,
             style: TextStyle(

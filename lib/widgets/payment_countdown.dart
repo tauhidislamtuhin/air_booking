@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import '../utils/custom_colors.dart';
 
 class PaymentCountdown extends StatefulWidget {
   final int totalSeconds;
@@ -26,6 +27,7 @@ class _PaymentCountdownState extends State<PaymentCountdown> {
     _startTimer();
   }
 
+  // Start 1-second timer
   void _startTimer() {
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (_remainingSeconds > 0) {
@@ -41,6 +43,7 @@ class _PaymentCountdownState extends State<PaymentCountdown> {
     });
   }
 
+  // Formating
   String _formatTime(int seconds) {
     int hours = seconds ~/ 3600;
     int minutes = (seconds % 3600) ~/ 60;
@@ -61,26 +64,33 @@ class _PaymentCountdownState extends State<PaymentCountdown> {
 
   @override
   Widget build(BuildContext context) {
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Icon(
+        Icon(
           Icons.access_time_rounded,
-          color: Colors.white70,
+          color: CustomColors.secondaryColor,
           size: 16,
         ),
         const SizedBox(width: 6),
         RichText(
           text: TextSpan(
-            style: const TextStyle(color: Colors.white, fontSize: 13),
+            style: TextStyle(color: CustomColors.secondaryColor, fontSize: 13),
             children: [
-              const TextSpan(
+              TextSpan(
                 text: "Complete payment in  ",
-                style: TextStyle(fontWeight: FontWeight.w400),
+                style: TextStyle(
+                  fontWeight: FontWeight.w400,
+                  color: CustomColors.secondaryColor,
+                ),
               ),
               TextSpan(
                 text: _formatTime(_remainingSeconds),
-                style: const TextStyle(fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: CustomColors.secondaryColor,
+                ),
               ),
             ],
           ),

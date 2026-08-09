@@ -4,6 +4,7 @@ import 'package:air_booking/widgets/common_header.dart';
 import 'package:air_booking/widgets/custom_textfield.dart';
 import 'package:air_booking/widgets/trip_selection.dart';
 import 'package:flutter/material.dart';
+
 import '../models/airport.dart';
 import '../models/flight_search.dart';
 import '../models/offer.dart';
@@ -33,6 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
   String passenger = "1 Seat";
   String travelClass = "Economy";
 
+  // Swap departure and destination airports
   void swapAirport() {
     setState(() {
       final temp = fromAirport;
@@ -41,6 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  // Update trip selection index
   void onChanged(int index) {
     setState(() {
       selectedIndex = index;
@@ -49,14 +52,21 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final cardBg = CustomColors.getCardColor(context);
+    final textColor = CustomColors.getTextColor(context);
+
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      backgroundColor: CustomColors.getBackgroundColor(context),
       body: SingleChildScrollView(
         child: Column(
           children: [
+            // Header and search card stack
             Stack(
               children: [
                 CommonHeader(height: 350),
                 SafeArea(
+
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 20,
@@ -64,6 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     child: Column(
                       children: [
+                        // User profile header
                         Row(
                           children: [
                             const CircleAvatar(
@@ -95,13 +106,14 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ),
 
+                            // Notification icon
                             Stack(
                               children: [
                                 Container(
                                   padding: const EdgeInsets.all(0),
-                                  child: Icon(
+                                  child: const Icon(
                                     Icons.circle_notifications_outlined,
-                                    color: CustomColors.backgroundColor,
+                                    color: Colors.white,
                                     size: 40,
                                   ),
                                 ),
@@ -128,9 +140,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
 
                         const SizedBox(height: 30),
-                        Card(
-                          color: Colors.white,
 
+                        // Main flight search form card
+                        Card(
+                          color: cardBg,
+                          elevation: 2,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(24),
                           ),
@@ -142,7 +156,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   selectedIndex: selectedIndex,
                                   onChanged: onChanged,
                                 ),
-                                SizedBox(height: 20),
+                                const SizedBox(height: 20),
                                 Stack(
                                   clipBehavior: Clip.none,
                                   children: [
@@ -152,6 +166,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                       child: Column(
                                         children: [
+                                          // Airport fields
                                           AirportTextField(
                                             title: "From",
                                             icon: Icons.flight_takeoff_outlined,
@@ -175,7 +190,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                               });
                                             },
                                           ),
-                                          SizedBox(height: 15),
+                                          const SizedBox(height: 15),
+
+                                          // Date fields
                                           Column(
                                             children: [
                                               if (selectedIndex == 0 ||
@@ -191,7 +208,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     DatePickerHelper.show(
                                                       context: context,
                                                       initialDate:
-                                                          departureDate,
+                                                      departureDate,
                                                       onSelected: (date) {
                                                         setState(() {
                                                           departureDate = date;
@@ -213,16 +230,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     DatePickerHelper.show(
                                                       context: context,
                                                       initialDate:
-                                                          departureDate,
+                                                      departureDate,
                                                       onSelected: (date) {
                                                         setState(() {
                                                           departureDate = date;
                                                           if (returnDate !=
-                                                                  null &&
+                                                              null &&
                                                               returnDate!
                                                                   .isBefore(
-                                                                    date,
-                                                                  )) {
+                                                                date,
+                                                              )) {
                                                             returnDate = null;
                                                           }
                                                         });
@@ -251,7 +268,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     DatePickerHelper.show(
                                                       context: context,
                                                       initialDate:
-                                                          returnDate ??
+                                                      returnDate ??
                                                           departureDate,
                                                       firstDate: departureDate,
                                                       onSelected: (date) {
@@ -265,7 +282,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                               ],
                                             ],
                                           ),
-                                          SizedBox(height: 15),
+                                          const SizedBox(height: 15),
+
+                                          // Passengers & Class selection
                                           Row(
                                             children: [
                                               Expanded(
@@ -309,7 +328,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                               ),
                                             ],
                                           ),
-                                          SizedBox(height: 15),
+                                          const SizedBox(height: 15),
+
+                                          // Search action button
                                           SizedBox(
                                             width: double.infinity,
                                             height: 55,
@@ -375,13 +396,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                     ),
 
+                                    // Swap airports floating button
                                     Positioned(
                                       right: 8,
                                       top: 45,
                                       child: CircleAvatar(
                                         radius: 24,
                                         backgroundColor:
-                                            CustomColors.primaryColor,
+                                        CustomColors.primaryColor,
                                         child: IconButton(
                                           onPressed: () {
                                             swapAirport();
@@ -406,14 +428,21 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
 
+            const SizedBox(height: 10),
+
+            // Special offers header
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
+                  Text(
                     "Special Offers",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: textColor,
+                    ),
                   ),
 
                   GestureDetector(
@@ -430,6 +459,9 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
 
+            const SizedBox(height: 10),
+
+            // Offers list view
             SizedBox(
               height: 150,
               child: ListView.separated(
@@ -445,12 +477,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
               ),
             ),
+
+            const SizedBox(height: 20),
           ],
         ),
       ),
     );
   }
 
+  // Display validation messages
   void _showSnackBar(BuildContext context, String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(

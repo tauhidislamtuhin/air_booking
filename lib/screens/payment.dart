@@ -15,7 +15,12 @@ import '../widgets/payment_countdown.dart';
 class PaymentScreen extends StatefulWidget {
   final Flight flight;
   final FlightSearch search;
-  const PaymentScreen({super.key, required this.flight, required this.search});
+
+  const PaymentScreen({
+    super.key,
+    required this.flight,
+    required this.search,
+  });
 
   @override
   State<PaymentScreen> createState() => _PaymentScreenState();
@@ -23,12 +28,18 @@ class PaymentScreen extends StatefulWidget {
 
 class _PaymentScreenState extends State<PaymentScreen> {
   bool isPointsUsed = true;
+
   @override
   Widget build(BuildContext context) {
+    final cardBg = CustomColors.getCardColor(context);
+    final textColor = CustomColors.getTextColor(context);
+    final subTextColor = CustomColors.getSubTextColor(context);
+
     return Scaffold(
-      backgroundColor: CustomColors.backgroundColor,
+      backgroundColor: CustomColors.getBackgroundColor(context),
       body: Column(
         children: [
+          // Screen header with stepper and countdown timer
           CommonHeader(
             height: 180,
             child: SafeArea(
@@ -61,18 +72,19 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       ],
                     ),
                     const SizedBox(height: 10),
-                    const BookingStepper(currentStep: 2,),
+                    const BookingStepper(currentStep: 2),
                     const SizedBox(height: 10),
                     PaymentCountdown(
                       totalSeconds: 7200,
-                      onTimerFinished: () {
-                      },
-                    )
+                      onTimerFinished: () {},
+                    ),
                   ],
                 ),
               ),
             ),
           ),
+
+          // Main content
           Expanded(
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(20),
@@ -81,6 +93,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   FlightCard(flight: widget.flight),
                   const SizedBox(height: 10),
 
+                  // Wallet and payment method
                   CommonCard(
                     icon: Icons.credit_card_outlined,
                     title: "Payment Method",
@@ -97,12 +110,12 @@ class _PaymentScreenState extends State<PaymentScreen> {
                           size: 25,
                         ),
                         const SizedBox(width: 12),
-                        const Text(
+                        Text(
                           "My Wallet",
                           style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.bold,
-                            color: Colors.black87,
+                            color: textColor,
                           ),
                         ),
                         const Spacer(),
@@ -119,6 +132,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   ),
 
                   const SizedBox(height: 10),
+
+                  // points toggle
                   CommonCard(
                     icon: Icons.monetization_on_outlined,
                     title: "You Have 6,450 Points",
@@ -131,11 +146,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         });
                       },
                     ),
-                    child: const Text(
+                    child: Text(
                       "100 points equals \$1.00. You will get\n1,000 points after this booking.",
                       style: TextStyle(
                         fontSize: 12,
-                        color: Colors.grey,
+                        color: subTextColor,
                         height: 1.4,
                       ),
                     ),
@@ -143,7 +158,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
                   const SizedBox(height: 10),
 
-                  //Discounts
+                  // Voucher & discounts
                   CommonCard(
                     icon: Icons.disc_full_outlined,
                     title: "Discounts / Vouchers",
@@ -155,7 +170,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 14,
+                          vertical: 8,
+                        ),
                         decoration: BoxDecoration(
                           color: CustomColors.primaryColor,
                           borderRadius: BorderRadius.circular(20),
@@ -173,9 +191,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                             ),
                             const SizedBox(width: 8),
                             GestureDetector(
-                              onTap: () {
-
-                              },
+                              onTap: () {},
                               child: const Icon(
                                 Icons.close,
                                 color: Colors.white,
@@ -190,7 +206,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
                   const SizedBox(height: 10),
 
-                  PriceDetailsCard(flight: widget.flight,isFinal: isPointsUsed,),
+                  // Final price details breakdown
+                  PriceDetailsCard(
+                    flight: widget.flight,
+                    isFinal: isPointsUsed,
+                  ),
                 ],
               ),
             ),
@@ -198,11 +218,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
         ],
       ),
 
-      //BottomButton
+      // Bottom navigation checkout action button
       bottomNavigationBar: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: cardBg,
           boxShadow: [
             BoxShadow(
               color: Colors.black.withAlpha(12),
@@ -222,7 +242,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 MaterialPageRoute(
                   builder: (_) => TicketScreen(
                     flight: widget.flight,
-                    search: widget.search
+                    search: widget.search,
                   ),
                 ),
               );

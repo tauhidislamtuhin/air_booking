@@ -13,99 +13,74 @@ class TripSelection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cardBg = CustomColors.getCardColor(context);
+    final textColor = CustomColors.getTextColor(context);
+    final borderColor = CustomColors.getBorderColor(context);
+
     return Row(
       children: [
-        Expanded(
-          child: ChoiceChip(
-            label: const Text(
-              "One-Way",
-              overflow: TextOverflow.visible,
-            ),
-            selected: selectedIndex == 0,
-            onSelected: (_) => onChanged(0),
-            selectedColor: CustomColors.primaryColor,
-            backgroundColor: CustomColors.secondaryColor,
-            labelStyle: TextStyle(
-              color: selectedIndex == 0
-                  ? Colors.white
-                  : Colors.black87,
-              fontWeight: FontWeight.w600,
-                fontSize: 12
-            ),
-
-            side: BorderSide(
-              color: Colors.grey.shade300,
-            ),
-
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30),
-            ),
-
-            showCheckmark: false,
-          ),
+        _buildChip(
+          context: context,
+          label: "One-Way",
+          index: 0,
+          cardBg: cardBg,
+          textColor: textColor,
+          borderColor: borderColor,
         ),
-
-        const SizedBox(width: 2),
-
-        Expanded(
-          child: ChoiceChip(
-            label: const Text("Round Trip"),
-            selected: selectedIndex == 1,
-            onSelected: (_) => onChanged(1),
-
-            selectedColor: CustomColors.primaryColor,
-            backgroundColor: CustomColors.secondaryColor,
-            labelStyle: TextStyle(
-              color: selectedIndex == 1
-                  ? Colors.white
-                  : Colors.black87,
-              fontWeight: FontWeight.w600,
-                fontSize: 11
-            ),
-
-            side: BorderSide(
-              color: Colors.grey.shade300,
-            ),
-
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30),
-            ),
-
-            showCheckmark: false,
-          ),
+        const SizedBox(width: 4),
+        _buildChip(
+          context: context,
+          label: "Round Trip",
+          index: 1,
+          cardBg: cardBg,
+          textColor: textColor,
+          borderColor: borderColor,
+          fontSize: 11,
         ),
-
-        const SizedBox(width: 2),
-
-        Expanded(
-          child: ChoiceChip(
-            label: const Text("Multi-City"),
-
-            selected: selectedIndex == 2,
-            onSelected: (_) => onChanged(2),
-            selectedColor: CustomColors.primaryColor,
-            backgroundColor: CustomColors.secondaryColor,
-
-            labelStyle: TextStyle(
-              color: selectedIndex == 2
-                  ? Colors.white
-                  : Colors.black87,
-              fontWeight: FontWeight.w600,
-              fontSize: 12
-            ),
-
-            side: BorderSide(
-              color: Colors.grey.shade300,
-            ),
-
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30),
-            ),
-
-            showCheckmark: false,
-          ),
+        const SizedBox(width: 4),
+        _buildChip(
+          context: context,
+          label: "Multi-City",
+          index: 2,
+          cardBg: cardBg,
+          textColor: textColor,
+          borderColor: borderColor,
         ),
       ],
+    );
+  }
+
+  Widget _buildChip({
+    required BuildContext context,
+    required String label,
+    required int index,
+    required Color cardBg,
+    required Color textColor,
+    required Color borderColor,
+    double fontSize = 12,
+  }) {
+    final isSelected = selectedIndex == index;
+
+    return Expanded(
+      child: ChoiceChip(
+        label: Text(label, overflow: TextOverflow.visible),
+        selected: isSelected,
+        onSelected: (_) => onChanged(index),
+        selectedColor: CustomColors.primaryColor,
+        backgroundColor: cardBg,
+        labelStyle: TextStyle(
+          color: isSelected ? Colors.white : textColor,
+          fontWeight: FontWeight.w600,
+          fontSize: fontSize,
+        ),
+        side: BorderSide(
+          color: isSelected ? CustomColors.primaryColor : borderColor,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30),
+        ),
+        showCheckmark: false,
+      ),
     );
   }
 }

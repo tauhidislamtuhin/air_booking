@@ -2,8 +2,8 @@ import 'package:air_booking/utils/custom_colors.dart';
 import 'package:air_booking/widgets/common_header.dart';
 import 'package:flutter/material.dart';
 
-class Booking extends StatelessWidget {
-  const Booking({super.key});
+class SaveScreen extends StatelessWidget {
+  const SaveScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class Booking extends StatelessWidget {
             child: const SafeArea(
               child: Center(
                 child: Text(
-                  "My Bookings",
+                  "Saved Flights",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,
@@ -32,13 +32,13 @@ class Booking extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(
-                    Icons.flight_takeoff_outlined,
+                    Icons.bookmark_border,
                     size: 70,
                     color: CustomColors.getSubTextColor(context),
                   ),
                   const SizedBox(height: 12),
                   Text(
-                    "No Active Bookings",
+                    "No Saved Flights Yet",
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -47,7 +47,7 @@ class Booking extends StatelessWidget {
                   ),
                   const SizedBox(height: 6),
                   Text(
-                    "Your completed and upcoming bookings will appear here",
+                    "Tap the bookmark icon on any flight to save it here",
                     style: TextStyle(
                       fontSize: 13,
                       color: CustomColors.getSubTextColor(context),

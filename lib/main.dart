@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'core/theme/app_theme.dart';
 import 'screens/main_screen.dart';
 
 void main() {
@@ -10,13 +11,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Air Booking',
-      theme: ThemeData(
-        useMaterial3: true,
-      ),
-      home: const MainScreen(),
+    return ValueListenableBuilder<ThemeMode>(
+      valueListenable: AppTheme.themeModeNotifier,
+      builder: (context, currentMode, child) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Air Booking',
+          theme: AppTheme.lightTheme,
+          darkTheme: AppTheme.darkTheme,
+          themeMode: currentMode,
+          home: const MainScreen(),
+        );
+      },
     );
   }
 }

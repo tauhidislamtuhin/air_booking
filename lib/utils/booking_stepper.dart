@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import '../utils/custom_colors.dart';
 
 class BookingStepper extends StatelessWidget {
-  final int currentStep; // 1: Book, 2: Pay, 3: E-Ticket
+  final int currentStep;
 
   const BookingStepper({
     super.key,
@@ -22,6 +23,7 @@ class BookingStepper extends StatelessWidget {
     );
   }
 
+  // Step circle indicator builder
   Widget _buildStepCircle({
     required int step,
     required String label,
@@ -43,10 +45,10 @@ class BookingStepper extends StatelessWidget {
           ),
           child: Center(
             child: isCompleted
-                ? const Icon(
+                ? Icon(
               Icons.check,
               size: 16,
-              color: Color(0xFF2962FF),
+              color: CustomColors.primaryColor,
             )
                 : Text(
               "$step",
@@ -54,7 +56,7 @@ class BookingStepper extends StatelessWidget {
                 fontWeight: FontWeight.bold,
                 fontSize: 13,
                 color: isCurrent
-                    ? const Color(0xFF2962FF)
+                    ? CustomColors.primaryColor
                     : Colors.white.withAlpha(180),
               ),
             ),
@@ -73,6 +75,7 @@ class BookingStepper extends StatelessWidget {
     );
   }
 
+  // Connecting line between step circles
   Widget _buildLine({required bool isActive}) {
     return Container(
       width: 40,

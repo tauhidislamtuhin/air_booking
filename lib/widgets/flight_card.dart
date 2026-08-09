@@ -2,8 +2,6 @@ import 'package:air_booking/models/flight.dart';
 import 'package:air_booking/utils/custom_colors.dart';
 import 'package:flutter/material.dart';
 
-import '../utils/date_formatter.dart';
-
 class FlightCard extends StatelessWidget {
   final Flight flight;
   final VoidCallback? onTap;
@@ -13,18 +11,26 @@ class FlightCard extends StatelessWidget {
   const FlightCard({
     super.key,
     required this.flight,
-    this.onTap, this.isTicket = false, this.ticketDate,
+    this.onTap,
+    this.isTicket = false,
+    this.ticketDate,
   });
 
   @override
   Widget build(BuildContext context) {
+    final cardBg = isTicket ? Colors.white : CustomColors.getCardColor(context);
+    final textColor = isTicket ? Colors.black87 : CustomColors.getTextColor(context);
+    final subTextColor = isTicket ? Colors.black54 : CustomColors.getSubTextColor(context);
+    final dividerColor = isTicket ? Colors.grey.shade300 : CustomColors.getBorderColor(context);
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(22),
       child: Card(
         elevation: 2,
-        color: Colors.white,
-        shadowColor: Colors.black12,
+        color: cardBg,
+        shadowColor: (isDark && !isTicket) ? Colors.black54 : Colors.black12,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(22),
         ),
@@ -32,9 +38,9 @@ class FlightCard extends StatelessWidget {
           padding: const EdgeInsets.all(18),
           child: Column(
             children: [
+              // Airline Header Section
               Row(
                 children: [
-
                   ClipRRect(
                     borderRadius: BorderRadius.circular(8),
                     child: Image.asset(
@@ -42,6 +48,7 @@ class FlightCard extends StatelessWidget {
                       width: 30,
                       height: 30,
                       fit: BoxFit.cover,
+                      errorBuilder: (_, __, ___) => const SizedBox(width: 30, height: 30),
                     ),
                   ),
 
@@ -52,10 +59,8 @@ class FlightCard extends StatelessWidget {
                       flight.airline,
                       style: TextStyle(
                         fontSize: isTicket ? 13 : 20,
-                        color: Colors.black,
+                        color: textColor,
                         fontWeight: isTicket ? FontWeight.bold : FontWeight.normal,
-
-
                       ),
                     ),
                   ),
@@ -63,20 +68,18 @@ class FlightCard extends StatelessWidget {
                   RichText(
                     text: TextSpan(
                       children: [
-
                         TextSpan(
-                          text:isTicket ? ticketDate: flight.price,
+                          text: isTicket ? ticketDate : flight.price,
                           style: TextStyle(
-                            color:isTicket ? Colors.black : CustomColors.primaryColor,
+                            color: isTicket ? textColor : CustomColors.primaryColor,
                             fontSize: isTicket ? 12 : 18,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-
                         TextSpan(
-                          text:isTicket ? "" : " /pax",
+                          text: isTicket ? "" : " /pax",
                           style: TextStyle(
-                            color: Colors.grey,
+                            color: subTextColor,
                             fontSize: 13,
                           ),
                         ),
@@ -88,15 +91,16 @@ class FlightCard extends StatelessWidget {
 
               const SizedBox(height: 8),
 
-              Divider(color: Colors.grey.shade300),
+              Divider(color: dividerColor),
 
               const SizedBox(height: 8),
 
+              // Flight Details & Times
               SizedBox(
                 height: 120,
                 child: Stack(
                   children: [
-
+                    // Airplane Path Icon
                     Positioned(
                       top: 8,
                       left: 75,
@@ -106,20 +110,21 @@ class FlightCard extends StatelessWidget {
                         height: 42,
                         fit: BoxFit.fitWidth,
                         color: CustomColors.primaryColor,
+                        errorBuilder: (_, __, ___) => const SizedBox(),
                       ),
                     ),
 
+                    // Departure Info
                     Positioned(
                       left: 0,
                       top: 0,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-
                           Text(
                             flight.fromCity,
-                            style: const TextStyle(
-                              color: Colors.black54,
+                            style: TextStyle(
+                              color: subTextColor,
                               fontSize: 15,
                             ),
                           ),
@@ -128,9 +133,10 @@ class FlightCard extends StatelessWidget {
 
                           Text(
                             flight.departureTime,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 28,
                               fontWeight: FontWeight.bold,
+                              color: textColor,
                             ),
                           ),
 
@@ -138,8 +144,8 @@ class FlightCard extends StatelessWidget {
 
                           Text(
                             flight.fromCode,
-                            style: const TextStyle(
-                              color: Colors.grey,
+                            style: TextStyle(
+                              color: subTextColor,
                               fontSize: 18,
                             ),
                           ),
@@ -147,6 +153,7 @@ class FlightCard extends StatelessWidget {
                       ),
                     ),
 
+                    // Arrival Info
                     Positioned(
                       right: 0,
                       top: 0,
@@ -155,8 +162,8 @@ class FlightCard extends StatelessWidget {
                         children: [
                           Text(
                             flight.toCity,
-                            style: const TextStyle(
-                              color: Colors.black54,
+                            style: TextStyle(
+                              color: subTextColor,
                               fontSize: 15,
                             ),
                           ),
@@ -165,9 +172,10 @@ class FlightCard extends StatelessWidget {
 
                           Text(
                             flight.arrivalTime,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 28,
                               fontWeight: FontWeight.bold,
+                              color: textColor,
                             ),
                           ),
 
@@ -175,8 +183,8 @@ class FlightCard extends StatelessWidget {
 
                           Text(
                             flight.toCode,
-                            style: const TextStyle(
-                              color: Colors.grey,
+                            style: TextStyle(
+                              color: subTextColor,
                               fontSize: 18,
                             ),
                           ),
@@ -184,7 +192,7 @@ class FlightCard extends StatelessWidget {
                       ),
                     ),
 
-
+                    // Flight Duration
                     Positioned(
                       top: 60,
                       left: 0,
@@ -193,7 +201,7 @@ class FlightCard extends StatelessWidget {
                         child: Text(
                           flight.duration,
                           style: TextStyle(
-                            color: Colors.black54,
+                            color: subTextColor,
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
                           ),
@@ -201,6 +209,7 @@ class FlightCard extends StatelessWidget {
                       ),
                     ),
 
+                    // Flight Class / Type
                     Positioned(
                       bottom: 0,
                       left: 0,
@@ -208,9 +217,9 @@ class FlightCard extends StatelessWidget {
                       child: Center(
                         child: Text(
                           flight.flightType,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 15,
-                            color: Colors.black54,
+                            color: subTextColor,
                             fontWeight: FontWeight.w600,
                           ),
                         ),

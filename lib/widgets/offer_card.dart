@@ -1,4 +1,5 @@
 import 'package:air_booking/models/offer.dart';
+import 'package:air_booking/utils/custom_colors.dart';
 import 'package:flutter/material.dart';
 
 class OfferCard extends StatelessWidget {
@@ -11,32 +12,47 @@ class OfferCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
     return ClipRRect(
       borderRadius: BorderRadius.circular(20),
       child: Container(
         height: 150,
         width: double.infinity,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              Color(0xFF2F6BFF),
-              Color(0xFF1E5BFF),
+              CustomColors.primaryColor,
+              CustomColors.primaryColor.withAlpha(210), // প্রাইমারি কালারের সফট শেড
             ],
           ),
+          boxShadow: [
+            BoxShadow(
+              color: isDark
+                  ? Colors.black.withAlpha(80)
+                  : CustomColors.primaryColor.withAlpha(50),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
+          ],
         ),
         child: Stack(
           children: [
             Positioned.fill(
               child: Opacity(
-                opacity: .10,
+                opacity: 0.10,
                 child: Image.asset(
                   "assets/images/dots_pattern.png",
                   fit: BoxFit.cover,
+                  errorBuilder: (_, __, ___) => const SizedBox(),
                 ),
               ),
             ),
+
 
             Positioned(
               left: 20,
@@ -52,20 +68,20 @@ class OfferCard extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-
                   const SizedBox(height: 4),
-
                   Text(
                     offer.title,
                     style: const TextStyle(
                       color: Colors.white70,
                       fontSize: 13,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ],
               ),
             ),
 
+            // plane
             Positioned(
               right: -100,
               top: 40,
@@ -74,6 +90,7 @@ class OfferCard extends StatelessWidget {
                 child: Image.asset(
                   "assets/images/plane.png",
                   width: 280,
+                  errorBuilder: (_, __, ___) => const SizedBox(),
                 ),
               ),
             ),

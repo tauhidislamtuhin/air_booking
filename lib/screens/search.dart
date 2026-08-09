@@ -1,8 +1,8 @@
 import 'package:air_booking/models/flight_search.dart';
 import 'package:air_booking/screens/details.dart';
+import 'package:air_booking/utils/custom_colors.dart';
 import 'package:air_booking/widgets/flight_card.dart';
 import 'package:air_booking/widgets/search_header.dart';
-
 import 'package:flutter/material.dart';
 
 import '../models/flight.dart';
@@ -19,15 +19,17 @@ class SearchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: CustomColors.getBackgroundColor(context),
       body: Stack(
         children: [
           Column(
             children: [
+              // Search header with route info & date selector
               SearchHeader(search: search),
 
+              // Available flight list
               Expanded(
                 child: ListView.builder(
-                  // Floating Bar-এর নিচে যাতে কার্ড না ঢেকে যায় সেজন্য নিচে bottom padding দেওয়া হলো
                   padding: const EdgeInsets.only(
                     top: 20,
                     left: 20,
@@ -60,6 +62,7 @@ class SearchScreen extends StatelessWidget {
             ],
           ),
 
+          // sort and filter
           Positioned(
             left: 20,
             right: 20,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../utils/custom_colors.dart';
 
 class CustomButton extends StatelessWidget {
   final String text;
@@ -34,7 +35,7 @@ class CustomButton extends StatelessWidget {
       child: TextButton(
         onPressed: onPressed,
         style: TextButton.styleFrom(
-          backgroundColor: backgroundColor ?? const Color(0xFF2962FF),
+          backgroundColor: backgroundColor ?? CustomColors.primaryColor,
           foregroundColor: foregroundColor ?? Colors.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadius ?? 10),
