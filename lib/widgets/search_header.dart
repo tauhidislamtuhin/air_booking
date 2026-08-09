@@ -112,7 +112,7 @@ class _SearchHeaderState extends State<SearchHeader> {
                         height: 40,
                         width: 200,
                         fit: BoxFit.fitWidth,
-                        errorBuilder: (_, __, ___) => const SizedBox(),
+                        errorBuilder: (_, _, _) => const SizedBox(),
                       ),
                       const SizedBox(height: 8),
                       Text(

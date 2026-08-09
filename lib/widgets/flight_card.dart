@@ -48,7 +48,7 @@ class FlightCard extends StatelessWidget {
                       width: 30,
                       height: 30,
                       fit: BoxFit.cover,
-                      errorBuilder: (_, __, ___) => const SizedBox(width: 30, height: 30),
+                      errorBuilder: (_, _, _) => const SizedBox(width: 30, height: 30),
                     ),
                   ),
 
@@ -110,7 +110,7 @@ class FlightCard extends StatelessWidget {
                         height: 42,
                         fit: BoxFit.fitWidth,
                         color: CustomColors.primaryColor,
-                        errorBuilder: (_, __, ___) => const SizedBox(),
+                        errorBuilder: (_, _, _) => const SizedBox(),
                       ),
                     ),
 

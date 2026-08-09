@@ -48,7 +48,7 @@ class OfferCard extends StatelessWidget {
                 child: Image.asset(
                   "assets/images/dots_pattern.png",
                   fit: BoxFit.cover,
-                  errorBuilder: (_, __, ___) => const SizedBox(),
+                  errorBuilder: (_, _, _) => const SizedBox(),
                 ),
               ),
             ),
@@ -90,7 +90,7 @@ class OfferCard extends StatelessWidget {
                 child: Image.asset(
                   "assets/images/plane.png",
                   width: 280,
-                  errorBuilder: (_, __, ___) => const SizedBox(),
+                  errorBuilder: (_, _, _) => const SizedBox(),
                 ),
               ),
             ),

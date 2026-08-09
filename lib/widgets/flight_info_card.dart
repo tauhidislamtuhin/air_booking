@@ -34,7 +34,7 @@ class FlightInfoCard extends StatelessWidget {
           width: 42,
           height: 42,
           fit: BoxFit.contain,
-          errorBuilder: (_, __, ___) => const SizedBox(width: 42, height: 42),
+          errorBuilder: (_, _, _) => const SizedBox(width: 42, height: 42),
         ),
         const SizedBox(width: 14),
         Column(
