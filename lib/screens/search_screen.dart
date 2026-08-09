@@ -1,5 +1,5 @@
 import 'package:air_booking/models/flight_search.dart';
-import 'package:air_booking/screens/details.dart';
+import 'package:air_booking/screens/details_screen.dart';
 import 'package:air_booking/utils/custom_colors.dart';
 import 'package:air_booking/widgets/flight_card.dart';
 import 'package:air_booking/widgets/search_header.dart';

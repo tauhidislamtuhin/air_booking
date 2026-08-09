@@ -1,4 +1,4 @@
-import 'package:air_booking/screens/search.dart';
+import 'package:air_booking/screens/search_screen.dart';
 import 'package:air_booking/utils/passenger_bottom_sheet.dart';
 import 'package:air_booking/widgets/common_header.dart';
 import 'package:air_booking/widgets/custom_textfield.dart';

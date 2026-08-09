@@ -1,6 +1,6 @@
 import 'package:air_booking/models/flight.dart';
 import 'package:air_booking/models/flight_search.dart';
-import 'package:air_booking/screens/payment.dart';
+import 'package:air_booking/screens/payment_screen.dart';
 import 'package:air_booking/utils/booking_stepper.dart';
 import 'package:air_booking/widgets/PriceDetailsCard.dart';
 import 'package:flutter/material.dart';

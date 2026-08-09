@@ -1,9 +1,8 @@
 import 'package:air_booking/models/flight_search.dart';
-import 'package:air_booking/screens/account.dart';
+import 'package:air_booking/screens/account_screen.dart';
 import 'package:air_booking/screens/booking.dart';
-import 'package:air_booking/screens/home.dart';
+import 'package:air_booking/screens/home_screen.dart';
 import 'package:air_booking/screens/save_screen.dart';
-import 'package:air_booking/screens/test.dart';
 import 'package:air_booking/screens/wallet_screen.dart';
 import 'package:air_booking/utils/custom_colors.dart';
 import 'package:flutter/cupertino.dart';
